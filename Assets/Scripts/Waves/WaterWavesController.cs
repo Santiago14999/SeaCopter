@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class WaterWavesController : MonoBehaviour
 {
@@ -107,15 +108,11 @@ public class WaterWavesController : MonoBehaviour
         {
             int vertexIndex = 0;
 
-            float topLeftX = (_meshWidth - 1) / -2f;
-            float topLeftZ = (_meshHeight - 1) / 2f;
-
-
             for (int y = 0; y < _meshHeight; y++)
             {
                 for (int x = 0; x < _meshWidth; x++)
                 {
-                    vertices[vertexIndex] = new Vector3(topLeftX + x, 0, topLeftZ - y);
+                    vertices[vertexIndex] = new Vector3(x, 0, -y);
                     uvs[vertexIndex] = new Vector2(x / (float)_meshWidth, y / (float)_meshHeight);
 
                     if (x < _meshWidth - 1 && y < _meshHeight - 1)
@@ -139,7 +136,6 @@ public class WaterWavesController : MonoBehaviour
             {
                 for (int x = 0; x < _meshWidth; x++)
                 {
-
                     vertices[vertexIndex].y = heightMap[x, y] * heightMultiplier;
                     vertexIndex++;
                 }
