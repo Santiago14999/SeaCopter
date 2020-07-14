@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public static class Noise
+public class Noise : MonoBehaviour
 {
     public static void GenerateNoiseMap(float[,] arrayToFill, int mapWidth, int mapHeight, float scale, Vector2 offset)
 	{

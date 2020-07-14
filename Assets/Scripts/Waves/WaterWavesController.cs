@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterWavesController : MonoBehaviour
+public class Noise : MonoBehaviour
 {
     [Header("Waves Settings")]
     [SerializeField] private float _wavesSpeed = 1f;
@@ -35,7 +35,7 @@ public class WaterWavesController : MonoBehaviour
         MeshData meshData = new MeshData(_planeWidth, _planeHeight);
 
         Vector2 offset = new Vector2(_noiseOffset.x + _previewOffset * _wavesDirection.x, _noiseOffset.y + _previewOffset * _wavesDirection.y);
-        Noise.GenerateNoiseMap(_heightsMap, _planeWidth, _planeHeight, _noiseScale, offset);
+        NoiseHandler.GenerateNoiseMap(_heightsMap, _planeWidth, _planeHeight, _noiseScale, offset);
 
 
         _meshFilter.sharedMesh = meshData.UpdateMesh(_heightsMap, _heightMultiplier);
@@ -67,7 +67,7 @@ public class WaterWavesController : MonoBehaviour
         _currentOffset += Time.deltaTime * _wavesSpeed;
         Vector2 offset = new Vector2(_noiseOffset.x + _currentOffset * _wavesDirection.x, _noiseOffset.y + _currentOffset * _wavesDirection.y);
 
-        Noise.GenerateNoiseMap(_heightsMap, _planeWidth, _planeHeight, _noiseScale, offset);
+        NoiseHandler.GenerateNoiseMap(_heightsMap, _planeWidth, _planeHeight, _noiseScale, offset);
         _meshFilter.sharedMesh = _currentMesh.UpdateMesh(_heightsMap, _heightMultiplier);
     }
 

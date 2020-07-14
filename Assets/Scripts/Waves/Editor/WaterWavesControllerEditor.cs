@@ -1,12 +1,12 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(WaterWavesController))]
+[CustomEditor(typeof(Noise))]
 public class WaterWavesControllerEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        WaterWavesController wavesController = (WaterWavesController)target;
+        Noise wavesController = (Noise)target;
 
         if (DrawDefaultInspector())
         {

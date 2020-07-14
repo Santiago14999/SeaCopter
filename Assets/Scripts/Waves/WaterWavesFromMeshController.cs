@@ -12,6 +12,7 @@ public class WaterWavesFromMeshController : MonoBehaviour
     [SerializeField] private float _noiseScale;
     [SerializeField] private bool _appendGlobalPosition;
     [SerializeField] private MeshFilter _meshFilter;
+    [SerializeField] private Transform _transform;
 
     [Header("Preview Settings")]
     public bool showPreview = false;
@@ -20,7 +21,6 @@ public class WaterWavesFromMeshController : MonoBehaviour
     private float _currentOffset;
     private Vector2 _wavesDirection;
     private MeshData _currentMesh;
-    private Transform _transform;
 
     // Editor function
     public void GenerateMeshPreview()
@@ -31,6 +31,11 @@ public class WaterWavesFromMeshController : MonoBehaviour
         MeshData meshData = new MeshData(_templateMesh);
 
         Vector2 offset = new Vector2(_noiseOffset.x + _previewOffset * _wavesDirection.x, _noiseOffset.y + _previewOffset * _wavesDirection.y);
+        if (_appendGlobalPosition)
+        {
+            offset.x += transform.position.x / transform.localScale.x;
+            offset.y += transform.position.z / transform.localScale.z;
+        }
         _meshFilter.sharedMesh = meshData.UpdateMesh(offset, _noiseScale, _heightMultiplier);
     }
 
@@ -46,13 +51,13 @@ public class WaterWavesFromMeshController : MonoBehaviour
 
     private void Update()
     {
-        _currentOffset += Time.deltaTime * _wavesSpeed;
+        _currentOffset = Time.time * _wavesSpeed;
         Vector2 offset = new Vector2(_noiseOffset.x + _currentOffset * _wavesDirection.x, _noiseOffset.y + _currentOffset * _wavesDirection.y);
 
         if (_appendGlobalPosition)
         {
-            offset.x += _transform.position.x;
-            offset.y += _transform.position.z;
+            offset.x += _transform.position.x / transform.localScale.x;
+            offset.y += _transform.position.z / transform.localScale.z;
         }
 
         _meshFilter.sharedMesh = _currentMesh.UpdateMesh(offset, _noiseScale, _heightMultiplier);
