@@ -9,15 +9,17 @@ public class FollowTarget : MonoBehaviour
     [SerializeField] private bool _followXRotation;
     [SerializeField] private bool _followYRotation;
     [SerializeField] private bool _followZRotation;
+    [SerializeField] private Vector3 _positionOffset;
+    [SerializeField] private Vector3 _rotationOffset;
 
     private Transform _transform;
 
-    private void Start() => _transform = transform;
+    private void Awake() => _transform = transform;
 
     private void Update()
     {
-        Vector3 targetPosition = _target.position;
-        Vector3 targetRotation = _target.eulerAngles;
+        Vector3 targetPosition = _target.position + _positionOffset;
+        Vector3 targetRotation = _target.eulerAngles + _rotationOffset;
 
         if (!_followX)
             targetPosition.x = _transform.position.x;

@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
         _transform = GetComponent<Transform>();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         Vector3 requiredPosition = new Vector3(_transform.position.x, _transform.position.y + _cameraHeight, _transform.position.z + _cameraDistance);
         _camera.position = Vector3.Lerp(_camera.position, requiredPosition, Time.deltaTime * _followSpeed);
