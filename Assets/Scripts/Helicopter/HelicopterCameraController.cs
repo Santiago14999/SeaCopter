@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class HelicopterCameraController : MonoBehaviour
 {
     [SerializeField] private Transform _camera;
     [SerializeField] private float _cameraHeight;
@@ -9,10 +9,7 @@ public class CameraController : MonoBehaviour
 
     private Transform _transform;
 
-    private void Start()
-    {
-        _transform = GetComponent<Transform>();
-    }
+    private void Start() => _transform = GetComponent<Transform>();
 
     private void LateUpdate()
     {

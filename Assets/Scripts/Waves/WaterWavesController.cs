@@ -6,6 +6,8 @@ public class WaterWavesController : MonoBehaviour
 	[SerializeField] private float _wavesDirectionInDegrees = 45f;
 	[SerializeField] private float _heightMultiplier = 1f;
 	[SerializeField] private float _noiseScale = 2f;
+    public float NoiseScale { get { return _noiseScale; } }
+    public float HeightMultiplier { get { return _heightMultiplier; } }
 
 	private Vector2 _wavesDirection;
     private float _currentOffset;
@@ -29,6 +31,6 @@ public class WaterWavesController : MonoBehaviour
         if (_noiseScale <= 0)
             _noiseScale = 1f;
 
-        return (Mathf.PerlinNoise((x + _currentOffset) * _wavesDirection.x / _noiseScale, (z + _currentOffset) * _wavesDirection.y / _noiseScale) -  0.5f) * _heightMultiplier;
+        return (Mathf.PerlinNoise((x + _currentOffset * _wavesDirection.x) / _noiseScale, (z + _currentOffset * _wavesDirection.y) / _noiseScale) - 0.5f) * _heightMultiplier;
     }
 }
