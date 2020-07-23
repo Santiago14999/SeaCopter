@@ -1,31 +1,29 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-[RequireComponent(typeof(InputHandler))]
+[RequireComponent(typeof(InputHandler), typeof(FloatController))]
 public class HelicopterMovementController : MonoBehaviour
 {
-    public event Action<bool> OnGroundedStateChanged = delegate { };
+    public event System.Action<bool> OnGroundedStateChanged = delegate { };
 
     [Tooltip("Model of the helicopter which will be tilted.")]
-    [SerializeField] private Transform _helicopterModel;
+    //[SerializeField] private Transform _helicopterModel;
     [SerializeField] private float _movementSpeed;
+    [SerializeField] private float _tiltSpeed;
     [SerializeField] private float _tiltAngle;
     [SerializeField] private float _movementSmoothTime;
     [SerializeField] private float _tiltSmoothTime;
     [SerializeField] private float _maxHeight;
     [SerializeField] private Transform _groundCheckOrigin;
 
+    private FloatController _floatController;
     private InputHandler _input;
-    private Transform _transform;
     private Vector3 _currentMoveVector;
-    private Vector3 _currentTiltVector;
-
-    private bool _isGrounded = true;
+    private Quaternion _currentTilt;
 
     private void Awake()
     {
         _input = GetComponent<InputHandler>();
-        _transform = GetComponent<Transform>();
+        _floatController = GetComponent<FloatController>();
     }
 
     private void Update()
@@ -37,10 +35,10 @@ public class HelicopterMovementController : MonoBehaviour
     private void HandleMovementSmooth(Vector3 requiredMoveVector)
     {
         // Movement
-        if (_transform.position.y + requiredMoveVector.y > _maxHeight)
+        if (transform.position.y + requiredMoveVector.y > _maxHeight)
             requiredMoveVector.y = 0;
 
-        if (_isGrounded)
+        if (_floatController.IsFloating)
         {
             requiredMoveVector.x = 0;
             requiredMoveVector.z = 0;
@@ -52,31 +50,39 @@ public class HelicopterMovementController : MonoBehaviour
         }
 
         _currentMoveVector = Vector3.Lerp(_currentMoveVector, requiredMoveVector, Time.deltaTime * _movementSmoothTime);
-        _transform.Translate(_currentMoveVector * _movementSpeed * Time.deltaTime, Space.World);
+        transform.Translate(_currentMoveVector * _movementSpeed * Time.deltaTime, Space.World);
 
         // Tilt
-        Vector3 requiredTiltVector = new Vector3(requiredMoveVector.z, 0, -requiredMoveVector.x) * _tiltAngle;
-        _currentTiltVector = Vector3.Lerp(_currentTiltVector, requiredTiltVector, Time.deltaTime * _tiltSmoothTime);
-        _helicopterModel.rotation = Quaternion.Euler(_currentTiltVector);
+        if (!_floatController.IsFloating)
+        {
+            Quaternion requiredTilt = Quaternion.Euler(new Vector3(requiredMoveVector.z, 0, -requiredMoveVector.x) * _tiltAngle);
+            _currentTilt = Quaternion.Lerp(_currentTilt, requiredTilt, Time.deltaTime * _tiltSmoothTime);
+            //_helicopterModel.rotation = Quaternion.Euler(_currentTiltVector);
+            transform.rotation = _currentTilt;
+        }
+        else
+            _currentTilt = transform.rotation;
     }
 
     private void CheckGround()
     {
-        // TODO: Compare position.y with Waves Perlin Noise Value
-
-        if (_groundCheckOrigin.position.y > 0)
+        if (_floatController.IsUnderWater(_groundCheckOrigin.position))
         {
-            if (_isGrounded)
-                OnGroundedStateChanged(false);
+            if (!_floatController.IsFloating)
+                OnGroundedStateChanged(true);
 
-            _isGrounded = false;
+            _floatController.IsFloating = true;
         }
         else
         {
-            if (!_isGrounded)
-                OnGroundedStateChanged(true);
+            if (_floatController.IsFloating)
+            {
+                OnGroundedStateChanged(false);
+                print("End Floating");
+            }
 
-            _isGrounded = true;
+            _floatController.IsFloating = false;
+            
         }
     }
 }

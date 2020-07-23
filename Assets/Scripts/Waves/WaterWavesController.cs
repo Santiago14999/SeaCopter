@@ -2,10 +2,10 @@
 
 public class WaterWavesController : MonoBehaviour
 {
-	[SerializeField] private float _wavesSpeed = 1f;
+	[SerializeField] private float _wavesSpeed = 2.5f;
 	[SerializeField] private float _wavesDirectionInDegrees = 45f;
-	[SerializeField] private float _heightMultiplier = 1f;
-	[SerializeField] private float _noiseScale = 2f;
+	[SerializeField] private float _heightMultiplier = 4f;
+	[SerializeField] private float _noiseScale = 9f;
     public float NoiseScale { get { return _noiseScale; } }
     public float HeightMultiplier { get { return _heightMultiplier; } }
 
@@ -24,7 +24,7 @@ public class WaterWavesController : MonoBehaviour
         _wavesDirection.Normalize();
     }
 
-    private void Update() => _currentOffset = Time.time * _wavesSpeed;
+    private void Update() => _currentOffset += Time.deltaTime * _wavesSpeed;
 
     public float GetHeightAtPosition(float x, float z)
     {

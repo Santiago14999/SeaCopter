@@ -11,13 +11,11 @@ public class WaterWavesFromMeshController : MonoBehaviour
 
     private MeshFilter _meshFilter;
     private MeshData _currentMesh;
-    private Transform _transform;
     private WaterWavesController _wavesController;
 
     private void Awake()
     {
         _meshFilter = GetComponent<MeshFilter>();
-        _transform = transform;
         _currentMesh = new MeshData(_templateMesh);
     }
 
@@ -25,8 +23,8 @@ public class WaterWavesFromMeshController : MonoBehaviour
 
     private void Update()
     {
-        float xOffset = _appendPosition ? _transform.position.x : 0;
-        float zOffset = _appendPosition ? _transform.position.z : 0;
+        float xOffset = _appendPosition ? transform.position.x : 0;
+        float zOffset = _appendPosition ? transform.position.z : 0;
 
         _meshFilter.sharedMesh = _currentMesh.UpdateMesh(_wavesController, xOffset, zOffset);
     }

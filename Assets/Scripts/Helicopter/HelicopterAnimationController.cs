@@ -18,6 +18,8 @@ public class HelicopterAnimationController : MonoBehaviour
         _movementController.OnGroundedStateChanged += UpdateBladesSpeed;
     }
 
+    private void OnDestroy() => _movementController.OnGroundedStateChanged -= UpdateBladesSpeed;
+
     private void UpdateBladesSpeed(bool isGrounded)
     {
         if (_bladesStateChangeAnimation != null)
@@ -41,8 +43,6 @@ public class HelicopterAnimationController : MonoBehaviour
         }
 
         _animator.speed = toSpeed;
-
-        // _bladesStateChangeAnimation = null; Not sure if this is ok
     }
 
 }
