@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(InputHandler), typeof(FloatController))]
+[RequireComponent(typeof(InputHandler), typeof(FloatController), typeof(HelicopterFuelController))]
 public class HelicopterMovementController : MonoBehaviour
 {
     public event System.Action<bool> OnGroundedStateChanged = delegate { };
@@ -57,7 +57,6 @@ public class HelicopterMovementController : MonoBehaviour
         {
             Quaternion requiredTilt = Quaternion.Euler(new Vector3(requiredMoveVector.z, 0, -requiredMoveVector.x) * _tiltAngle);
             _currentTilt = Quaternion.Lerp(_currentTilt, requiredTilt, Time.deltaTime * _tiltSmoothTime);
-            //_helicopterModel.rotation = Quaternion.Euler(_currentTiltVector);
             transform.rotation = _currentTilt;
         }
         else
@@ -76,10 +75,7 @@ public class HelicopterMovementController : MonoBehaviour
         else
         {
             if (_floatController.IsFloating)
-            {
                 OnGroundedStateChanged(false);
-                print("End Floating");
-            }
 
             _floatController.IsFloating = false;
             

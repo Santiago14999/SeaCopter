@@ -24,7 +24,7 @@ public class HelicopterFuelController : MonoBehaviour
 
     private void Update()
     {
-        if (_isGrounded)
+        if (_isGrounded || _fuelLevel == 0)
             return;
 
         _fuelLevel -= Time.deltaTime;
@@ -35,6 +35,13 @@ public class HelicopterFuelController : MonoBehaviour
         }
 
         _fuelBar.fillAmount = _fuelLevel / _maxFuelLevel;
+    }
+
+    public void AddFuel(float amount)
+    {
+        _fuelLevel += amount;
+        if (_fuelLevel > _maxFuelLevel)
+            _fuelLevel = _maxFuelLevel;
     }
 
     private void UpdateGroundedState(bool isGrounded) => _isGrounded = isGrounded;
