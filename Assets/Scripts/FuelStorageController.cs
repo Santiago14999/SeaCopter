@@ -2,8 +2,10 @@
 
 public class FuelStorageController : MonoBehaviour
 {
+    public event System.Action<float> OnFuelLevelChanged;
+
     [SerializeField] private float _refuelSpeed;
-    [SerializeField] private bool _infiniteSource;
+    [SerializeField] private bool _isInfiniteSource;
     [SerializeField] private float _fuelCapacity;
 
     private float _fuelLevel;
@@ -12,13 +14,14 @@ public class FuelStorageController : MonoBehaviour
 
     public float GetFuel()
     {
-        if (_infiniteSource)
+        if (_isInfiniteSource)
             return Time.deltaTime * _refuelSpeed;
 
         if (_fuelLevel > 0)
         {
             float fuel = Time.deltaTime * _refuelSpeed;
             _fuelLevel -= fuel;
+            OnFuelLevelChanged(_fuelLevel / _fuelCapacity);
             return fuel;
         }
 

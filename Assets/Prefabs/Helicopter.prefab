@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &303431123
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 303431124}
-  m_Layer: 0
-  m_Name: GroundCheckOrigin
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &303431124
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303431123}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.6, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 124398619668555099}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &992630352661515864
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,7 +507,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6880983313481636211}
-  - {fileID: 303431124}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -572,13 +541,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c46a959cb87fc4fa3aab2b9a78bb1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _helicopterModel: {fileID: 6880983313481636211}
   _movementSpeed: 10
+  _tiltSpeed: 0
   _tiltAngle: 25
   _movementSmoothTime: 10
   _tiltSmoothTime: 10
   _maxHeight: 10
-  _groundCheckOrigin: {fileID: 303431124}
+  _groundCheckOrigin: {fileID: 0}
 --- !u!114 &1355568737
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,12 @@ public class RepulsiveForce : MonoBehaviour
     private Transform _helicopter;
     private Vector3 _direction;
 
-    private void Awake() => _helicopter = FindObjectOfType<HelicopterMovementController>().transform;
+    private void Awake()
+    {
+        _helicopter = FindObjectOfType<HelicopterMovementController>()?.transform;
+        if (_helicopter == null)
+            enabled = false;
+    }
 
     private void Update()
     {

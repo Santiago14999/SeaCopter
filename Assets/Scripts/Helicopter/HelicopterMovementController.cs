@@ -13,7 +13,7 @@ public class HelicopterMovementController : MonoBehaviour
     [SerializeField] private float _movementSmoothTime;
     [SerializeField] private float _tiltSmoothTime;
     [SerializeField] private float _maxHeight;
-    [SerializeField] private Transform _groundCheckOrigin;
+    [SerializeField] private float _floatPoint;
 
     private FloatController _floatController;
     private InputHandler _input;
@@ -63,9 +63,11 @@ public class HelicopterMovementController : MonoBehaviour
             _currentTilt = transform.rotation;
     }
 
+    public Vector3 GetHelicopterVelocity() => _currentMoveVector;
+
     private void CheckGround()
     {
-        if (_floatController.IsUnderWater(_groundCheckOrigin.position))
+        if (_floatController.IsUnderWater(transform.position - Vector3.up * _floatPoint))
         {
             if (!_floatController.IsFloating)
                 OnGroundedStateChanged(true);

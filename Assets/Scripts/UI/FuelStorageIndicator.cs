@@ -1,33 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(FuelStorageController))]
-public class FuelStorageIndicator : MonoBehaviour
+public class FuelStorageIndicator : Indicator
 {
-    public static event System.Action<FuelStorageIndicator> OnIndicatorAdded = delegate { };
-    public static event System.Action<FuelStorageIndicator> OnIndicatorRemoved = delegate { };
-
-    public event System.Action<float> OnFuelLevelChanged = delegate { };
+    public override event Action<float> OnIndicatorChanged;
 
     private FuelStorageController _fuelStorage;
-    private float _currentFuelLevel;
 
     private void Awake()
     {
         _fuelStorage = GetComponent<FuelStorageController>();
-        _currentFuelLevel = _fuelStorage.GetFuelPercentage();
+        _fuelStorage.OnFuelLevelChanged += UpdateIndicator;
     }
 
-    private void OnEnable() => OnIndicatorAdded(this);
+    private void OnDestroy() => _fuelStorage.OnFuelLevelChanged -= UpdateIndicator;
 
-    private void OnDisable() => OnIndicatorRemoved(this);
-
-    private void Update()
-    {
-        float fuelPercentage = _fuelStorage.GetFuelPercentage();
-        if (_currentFuelLevel != fuelPercentage)
-        {
-            _currentFuelLevel = fuelPercentage;
-            OnFuelLevelChanged(_currentFuelLevel);
-        }
-    }
+    private void UpdateIndicator(float percentage) => OnIndicatorChanged(percentage);
 }
