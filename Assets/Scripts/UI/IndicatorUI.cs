@@ -23,8 +23,16 @@ public class IndicatorUI : MonoBehaviour
     private void LateUpdate()
     {
         Vector3 viewport = _camera.WorldToViewportPoint(_indicator.transform.position + Vector3.up * _height);
+        if (viewport.y < -1 || viewport.z < 0)
+        {
+            Vector3 cameraRelativePos = _indicator.transform.position;
+            cameraRelativePos.z = _camera.transform.position.z;
+            Vector3 indicatorPos = _indicator.transform.position + Vector3.forward * Vector3.Distance(cameraRelativePos, _indicator.transform.position);
+            viewport = _camera.WorldToViewportPoint(indicatorPos);
+        }
         viewport.x = Mathf.Clamp(viewport.x, _borderOffset, 1 - _borderOffset);
         viewport.y = Mathf.Clamp(viewport.y, _borderOffset, 1 - _borderOffset);
+        viewport.z = 0;
 
         transform.position = _camera.ViewportToScreenPoint(viewport);
     }

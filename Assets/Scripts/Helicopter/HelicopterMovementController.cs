@@ -15,21 +15,26 @@ public class HelicopterMovementController : MonoBehaviour
     [SerializeField] private float _maxHeight;
     [SerializeField] private float _floatPoint;
 
+    private HelicopterFuelController _fuelController;
     private FloatController _floatController;
     private InputHandler _input;
     private Vector3 _currentMoveVector;
     private Quaternion _currentTilt;
+    private bool _hasFuel;
 
     private void Awake()
     {
         _input = GetComponent<InputHandler>();
         _floatController = GetComponent<FloatController>();
+        _fuelController = GetComponent<HelicopterFuelController>();
+        _fuelController.OnFuelStateChanged += UpdateFuelState;
+        _hasFuel = true;
     }
 
     private void Update()
     {
         CheckGround();
-        HandleMovementSmooth(_input.GetMoveInput());
+        HandleMovementSmooth(_hasFuel ? _input.GetMoveInput() : Vector3.down);
     }
 
     private void HandleMovementSmooth(Vector3 requiredMoveVector)
@@ -62,6 +67,8 @@ public class HelicopterMovementController : MonoBehaviour
         else
             _currentTilt = transform.rotation;
     }
+
+    public void UpdateFuelState(bool newState) => _hasFuel = newState;
 
     public Vector3 GetHelicopterVelocity() => _currentMoveVector;
 

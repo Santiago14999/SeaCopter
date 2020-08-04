@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(HelicopterMovementController))]
 public class HelicopterFuelController : MonoBehaviour
 {
-    public event System.Action OnOutOfFuel = delegate { };
+    public event System.Action<bool> OnFuelStateChanged = delegate { };
 
     [SerializeField] private Image _fuelBar;
     [SerializeField] private float _maxFuelLevel = 100f;
@@ -38,7 +38,7 @@ public class HelicopterFuelController : MonoBehaviour
         if (_fuelLevel < 0)
         {
             _fuelLevel = 0;
-            OnOutOfFuel();
+            OnFuelStateChanged(false);
         }
 
         _fuelBar.fillAmount = _fuelLevel / _maxFuelLevel;
@@ -46,6 +46,8 @@ public class HelicopterFuelController : MonoBehaviour
 
     public void AddFuel(float amount)
     {
+        if (_fuelLevel == 0 && _fuelLevel + amount > 0)
+            OnFuelStateChanged(true);
         _fuelLevel += amount;
         if (_fuelLevel > _maxFuelLevel)
             _fuelLevel = _maxFuelLevel;

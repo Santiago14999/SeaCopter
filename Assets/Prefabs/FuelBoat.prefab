@@ -94,8 +94,9 @@ GameObject:
   - component: {fileID: 2088863770788641203}
   - component: {fileID: 3883527277775549480}
   - component: {fileID: 5676057984138024803}
+  - component: {fileID: 3777157467500187029}
   m_Layer: 0
-  m_Name: Boat
+  m_Name: FuelBoat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b44fcb772862ac42b24b52ba4398e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFloating: 0
+  IsFloating: 1
   _buoyancySmoothTime: 5
   _rotationSmoothTime: 5
   _yOffset: 0
@@ -176,8 +177,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _refuelSpeed: 2
-  _infiniteSource: 1
+  _isInfiniteSource: 0
   _fuelCapacity: 100
+--- !u!114 &3777157467500187029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2257956213732048178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b66b6aa31c18f4bb1c5f2d088b9cad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _indicatorUIPrefab: {fileID: 2787346686912780491, guid: d08c2251c02a33a4bb05341e37885b73,
+    type: 3}
 --- !u!1 &4616828903344701939
 GameObject:
   m_ObjectHideFlags: 0
