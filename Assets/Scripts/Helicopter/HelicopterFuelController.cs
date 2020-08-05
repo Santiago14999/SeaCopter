@@ -21,11 +21,25 @@ public class HelicopterFuelController : MonoBehaviour
     {
         _movementController = GetComponent<HelicopterMovementController>();
         _movementController.OnGroundedStateChanged += UpdateGroundedState;
-        _fuelLevel = _maxFuelLevel;
         _fuelStorages = new List<FuelStorageController>();
+        GameManager.OnGameStarted += HanldeGameStart;
+        GameManager.OnGameEnded += HandleGameEnd;
     }
 
-    private void OnDestroy() => _movementController.OnGroundedStateChanged -= UpdateGroundedState;
+    private void HanldeGameStart()
+    {
+        OnFuelStateChanged(true);
+        _fuelLevel = _maxFuelLevel;
+    }
+
+    private void HandleGameEnd()
+    {
+        _fuelStorages.Clear();
+        _currentFuelStorage = null;
+        _hose.Disconnect();
+
+        _fuelLevel = -1;
+    }
 
     private void Update()
     {

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2989336690969936662}
   - component: {fileID: 5412377496884390237}
   - component: {fileID: 8198339473981030541}
+  - component: {fileID: 453089386155444388}
   m_Layer: 5
   m_Name: IndicatorBackground
   m_TagString: Untagged
@@ -75,6 +76,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &453089386155444388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928158858894691068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 3, y: -3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &5006781441594898007
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +165,7 @@ MonoBehaviour:
   _indicatorImage: {fileID: 7786512593065247082}
   _height: 6
   _borderOffset: 0.1
+  _minIconSize: 0.3
 --- !u!1 &8485106834033281791
 GameObject:
   m_ObjectHideFlags: 0

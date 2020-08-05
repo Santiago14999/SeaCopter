@@ -7,21 +7,28 @@ public class HelicopterCameraController : MonoBehaviour
     [SerializeField] private Vector3 _cameraMainPosition;
     [SerializeField] private float _followSpeed;
     [SerializeField] private bool _testChangePosition;
+    [SerializeField] private Transform _menuCameraOrigin;
 
     private HelicopterMovementController _movementController;
     private bool _freezeHegiht;
+    private bool _isInMenu;
 
     private void Awake()
     {
         _movementController = GetComponent<HelicopterMovementController>();
         _movementController.OnGroundedStateChanged += UpdateFreezeHeightState;
+        _isInMenu = true;
+        GameManager.OnGameStarted += HandleGameStart;
+        GameManager.OnGameEnded += HandleGameEnd;
     }
 
-    private void OnDestroy() => _movementController.OnGroundedStateChanged -= UpdateFreezeHeightState;
+    private void HandleGameStart() => _isInMenu = false;
+    private void HandleGameEnd() => _isInMenu = true;
 
     private void LateUpdate()
     {
-        Vector3 requiredPosition = transform.position +_cameraMainPosition;
+        Vector3 requiredPosition = _isInMenu ? _menuCameraOrigin.position : (transform.position + _cameraMainPosition);
+
         if (_freezeHegiht)
             requiredPosition.y = _cameraMainPosition.y;
 

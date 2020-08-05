@@ -7,14 +7,6 @@ public class InputHandler : MonoBehaviour
 
     public Vector3 GetMoveInput()
     {
-        //float xInput = Input.GetAxis("Horizontal");
-        //float zInput = Input.GetAxis("Vertical");
-        //float yInput = Input.GetAxis("Elevation");
-
-        //Vector3 moveVector = new Vector3(xInput, yInput, zInput);
-
-        //return moveVector.normalized;
-
         Vector2 joystickInput = _movementJoystick.Direction;
         Vector2 heightInput = _heightJoystick.Direction;
 

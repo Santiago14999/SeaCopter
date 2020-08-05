@@ -9,12 +9,7 @@ public class FloatController : MonoBehaviour
 
     private WaterWavesController _wavesController;
 
-    private void Start()
-    {
-        _wavesController = WaterWavesController.Instance;
-        if (!_wavesController)
-            enabled = false;
-    }
+    private void Start() => _wavesController = WaterWavesController.Instance;
 
     public bool IsUnderWater(Vector3 position)
     {

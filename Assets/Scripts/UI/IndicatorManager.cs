@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class IndicatorManager : MonoBehaviour
 {
+    [SerializeField] private Transform _indicatorsParent;
     private Dictionary<Indicator, IndicatorUI> _indicators;
 
     private void Awake()
@@ -27,14 +28,21 @@ public class IndicatorManager : MonoBehaviour
 
     private void AddIndicator(Indicator indicator)
     {
-        IndicatorUI indicatorUI = Instantiate(indicator.IndicatorUIPrefab, transform);
-        indicatorUI.SetIndicator(indicator);
-        _indicators.Add(indicator, indicatorUI);
+        if (_indicators.ContainsKey(indicator))
+        {
+            _indicators[indicator].gameObject.SetActive(true);
+        }
+        else
+        {
+            IndicatorUI indicatorUI = Instantiate(indicator.IndicatorUIPrefab, _indicatorsParent);
+            indicatorUI.SetIndicator(indicator);
+            _indicators.Add(indicator, indicatorUI);
+        }
     }
 
     private void RemoveIndicator(Indicator indicator)
     {
-        Destroy(_indicators[indicator].gameObject);
+        _indicators[indicator].gameObject.SetActive(false);
         _indicators.Remove(indicator);
     }
 }

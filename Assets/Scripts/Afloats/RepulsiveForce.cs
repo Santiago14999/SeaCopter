@@ -9,19 +9,18 @@ public class RepulsiveForce : MonoBehaviour
     [SerializeField] private float _rotationSmoothTime = 2f;
     [SerializeField] private float _minMagnitudeToRotate = 1f;
 
-    private Transform _helicopter;
+    private static Transform _helicopter;
     private Vector3 _direction;
 
     private void Awake()
     {
-        _helicopter = FindObjectOfType<HelicopterMovementController>()?.transform;
-        if (_helicopter == null)
-            enabled = false;
+        if (!_helicopter)
+            _helicopter = FindObjectOfType<HelicopterMovementController>().transform;
     }
 
     private void Update()
     {
-        float distance = Vector3.Distance(_helicopter.position, transform.position);
+        float distance = (_helicopter.position - transform.position).magnitude;
         if (distance < _minInfluenceDistance)
         {
             _direction = transform.position - _helicopter.position;

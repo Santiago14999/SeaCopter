@@ -5,28 +5,33 @@ public class RescueBoatController : MonoBehaviour, IPoolable
     [SerializeField] private float _boatSpeed = 10f;
     [SerializeField] private float _acceleration = 5f;
     [SerializeField] private float _offsetToDestroy = .2f;
+    [SerializeField] private GameObject[] _humansOnBoat;
+
+    public bool IsLoaded { get; private set; }
 
     private float _currentSpeed;
-    private bool _isLoaded;
-    private Camera _camera;
     private Indicator _indicator;
+    private static Camera _camera;
 
     private void Awake()
     {
-        _camera = FindObjectOfType<Camera>();
+        if (!_camera)
+            _camera = FindObjectOfType<Camera>();
         _indicator = GetComponent<Indicator>();
     }
 
     public void OnSpawn()
     {
         _currentSpeed = 0;
-        _isLoaded = false;
+        IsLoaded = false;
         _indicator.enabled = true;
+        for (int i = 0; i < _humansOnBoat.Length; i++)
+            _humansOnBoat[i].SetActive(false);
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if (_isLoaded)
+        if (IsLoaded)
         {
             _currentSpeed = Mathf.Lerp(_currentSpeed, _boatSpeed, Time.deltaTime * _acceleration);
             transform.Translate(Vector3.forward * _currentSpeed * Time.deltaTime);
@@ -42,7 +47,7 @@ public class RescueBoatController : MonoBehaviour, IPoolable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_isLoaded)
+        if (IsLoaded)
             return;
 
         if (other.TryGetComponent<HelicopterRescueController>(out var rescureController))
@@ -51,7 +56,10 @@ public class RescueBoatController : MonoBehaviour, IPoolable
                 return;
 
             int humans = rescureController.UnloadHumans();
-            _isLoaded = true;
+            for (int i = 0; i < humans; i++)
+                _humansOnBoat[i].SetActive(true);
+
+            IsLoaded = true;
             _indicator.enabled = false;
         }
     }

@@ -74,6 +74,7 @@ MonoBehaviour:
   _indicatorImage: {fileID: 0}
   _height: 6
   _borderOffset: 0.1
+  _minIconSize: 0.3
 --- !u!1 &206374577672774369
 GameObject:
   m_ObjectHideFlags: 0

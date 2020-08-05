@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class HumanController : MonoBehaviour
+public class HumanController : MonoBehaviour, IPoolable
 {
     public static event System.Action OnDrown = delegate { };
 
@@ -9,8 +9,9 @@ public class HumanController : MonoBehaviour
     private float _currentFloatingTime;
     private ObjectPooler _objectPooler;
 
-    private void Awake() => _currentFloatingTime = _timeToDrown;
     private void Start() => _objectPooler = ObjectPooler.Instance;
+
+    public void OnSpawn() => _currentFloatingTime = _timeToDrown;
 
     private void Update()
     {

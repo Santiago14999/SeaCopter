@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
@@ -13,19 +14,34 @@ public class ObjectPooler : MonoBehaviour
         public int size;
     }
 
-    #region singleton
-    public static ObjectPooler Instance { get; private set; }
-    private void Awake() => Instance = this;
-    #endregion
-
     [SerializeField] private List<Pool> _pools;
     private Dictionary<ObjectType, Queue<GameObject>> _poolDictionary;
+
+    public static ObjectPooler Instance { get; private set; }
+    private void Awake()
+    {
+        Instance = this;
+        GameManager.OnGameEnded += HandleLose;
+    }
+
+    private void HandleLose()
+    {
+        foreach(var pool in _poolDictionary)
+        {
+            for(int i = 0; i < pool.Value.Count; i++)
+            {
+                var obj = pool.Value.Dequeue();
+                obj.SetActive(false);
+                pool.Value.Enqueue(obj);
+            }
+        }
+    }
 
     private void Start()
     {
         _poolDictionary = new Dictionary<ObjectType, Queue<GameObject>>();
 
-        foreach(Pool pool in _pools)
+        foreach (Pool pool in _pools)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
 

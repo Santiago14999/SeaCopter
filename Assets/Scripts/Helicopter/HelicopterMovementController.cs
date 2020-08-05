@@ -5,8 +5,6 @@ public class HelicopterMovementController : MonoBehaviour
 {
     public event System.Action<bool> OnGroundedStateChanged = delegate { };
 
-    [Tooltip("Model of the helicopter which will be tilted.")]
-    //[SerializeField] private Transform _helicopterModel;
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _tiltSpeed;
     [SerializeField] private float _tiltAngle;

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2825886739839097087}
   - component: {fileID: 2825886739839097086}
   - component: {fileID: 1111436803}
+  - component: {fileID: 3038940099244463087}
   m_Layer: 0
   m_Name: FuelBarrel
   m_TagString: Untagged
@@ -82,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de831e38622ac60418d22654d1769f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _refuelSpeed: 2
+  _refuelSpeed: 5
   _isInfiniteSource: 0
   _fuelCapacity: 20
 --- !u!135 &2825886739839097086
@@ -112,6 +113,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _indicatorUIPrefab: {fileID: 2787346686912780491, guid: d08c2251c02a33a4bb05341e37885b73,
     type: 3}
+--- !u!114 &3038940099244463087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2825886739839097075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3c3a1e5b92d4814b9e5e58a83ccf26c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _distanceToDestroy: 100
 --- !u!1 &2825886741806851551
 GameObject:
   m_ObjectHideFlags: 0

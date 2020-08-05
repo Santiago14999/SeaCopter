@@ -16,6 +16,7 @@ public class HelicopterAnimationController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _movementController = GetComponent<HelicopterMovementController>();
         _movementController.OnGroundedStateChanged += UpdateBladesSpeed;
+        _animator.speed = 0;
     }
 
     private void OnDestroy() => _movementController.OnGroundedStateChanged -= UpdateBladesSpeed;

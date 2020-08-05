@@ -9,21 +9,22 @@ public class RescueBoatSpawner : MonoBehaviour
     private ObjectPooler _objectPooler;
     private bool _isBoatActive;
 
-    private void Awake() => _rescueController.OnHumanLoaded += SpawnRescueBoat;
+    private void Awake()
+    {
+        _rescueController.OnHumanLoaded += SpawnRescueBoat;
+        _rescueController.OnHumanUnloaded += FreeCurrentBoat;
+    }
+
     private void Start() => _objectPooler = ObjectPooler.Instance;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            SpawnRescueBoat();
-    }
+    private void FreeCurrentBoat() => _isBoatActive = false;
 
     private void SpawnRescueBoat()
     {
-        //if (_isBoatActive)
-        //    return;
+        if (_isBoatActive)
+            return;
 
-        //_isBoatActive = true;
+        _isBoatActive = true;
 
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
         Vector3 spawnPosition = new Vector3(randomDirection.x, 0, randomDirection.y);

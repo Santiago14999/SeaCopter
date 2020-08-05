@@ -488,9 +488,10 @@ GameObject:
   - component: {fileID: 1355568737}
   - component: {fileID: 1355568739}
   - component: {fileID: 697637136}
-  - component: {fileID: 697637139}
   - component: {fileID: 697637140}
   - component: {fileID: 697637131}
+  - component: {fileID: 697637139}
+  - component: {fileID: 996904907619938465}
   - component: {fileID: 697637132}
   - component: {fileID: 697637133}
   - component: {fileID: 697637141}
@@ -598,22 +599,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bladesMaxSpeed: 6
   _bladesChangeStateTime: 0.5
---- !u!54 &697637139
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4026968183988705096}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!135 &697637140
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -643,6 +628,35 @@ MonoBehaviour:
   _buoyancySmoothTime: 5
   _rotationSmoothTime: 5
   _yOffset: -0.4
+--- !u!54 &697637139
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4026968183988705096}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &996904907619938465
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4026968183988705096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &697637132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -671,7 +685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 0}
-  _height: 3.5
+  _height: 3.2
   _humansInHelicopterText: {fileID: 0}
 --- !u!114 &697637141
 MonoBehaviour:

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FuelStorageController : MonoBehaviour
+public class FuelStorageController : MonoBehaviour, IPoolable
 {
     public event System.Action<float> OnFuelLevelChanged;
 
@@ -10,7 +10,7 @@ public class FuelStorageController : MonoBehaviour
 
     private float _fuelLevel;
 
-    private void Awake() => _fuelLevel = _fuelCapacity;
+    public void OnSpawn() => _fuelLevel = _fuelCapacity;
 
     public float GetFuel()
     {
@@ -29,4 +29,6 @@ public class FuelStorageController : MonoBehaviour
     }
 
     public float GetFuelPercentage() => _fuelLevel / _fuelCapacity;
+
+    
 }
