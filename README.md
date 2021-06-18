@@ -1,3 +1,3 @@
 # SeaCopter
-Unity3D mobile game by Rogozhkin Alexander.
-(Большая часть визуала была взята из Asset Store'а. Весь код написан с нуля (кроме джойстика управления).
+Unity3D проект игры для мобильных устройств.
+![Seacopter](https://user-images.githubusercontent.com/68154236/122541643-0edb1080-d054-11eb-8bbc-b990507eab10.png)
